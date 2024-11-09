@@ -43,8 +43,23 @@
 
         }
 
-        public function login()
+        public function login($usuario,$pass,$conn)
         {
+            $sql=$conn->prepare("select * from usuarios where name_user=?");
+            $sql->bind_param('s',$usuario);
+            $sql->execute();
+            
+                $result=$sql->get_result();
+                $user = $result->fetch_assoc();
+                
+                if($user && password_verify($pass,$user['pass']))
+                {
+                    session_start();
+                    $_SESSION['usuario']=$user['name_user'];
+                    $_SESSION['id']=$user['id'];
+                    $_SESSION['rango']=$user['Rango'];
+                    echo "<script>alert('Secion Iniciada'); window.location.href = 'dashboard.php';</script>";
+                }
             
         }
 

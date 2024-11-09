@@ -24,7 +24,7 @@
     <form method="post">
     <label for="usuario">Usuario</label><input type="text" placeholder="name" required name="usuario"><br>
     <label for="pass">Password</label><input type="password" name="pass" placeholder="****"><br>
-    <input type="submit" value="Registrar">
+    <input type="submit" value="Registrar"><button><a href="login.php">login</a></button>
     </form>
 </body>
 </html>
