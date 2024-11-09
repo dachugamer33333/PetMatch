@@ -1,12 +1,19 @@
 <?php
     require ("../Model/conec.php");
+    require __DIR__ . '/../vendor/autoload.php';
+
+
+    // Cargar las variables desde el archivo .env
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+
+    $dotenv->load();
 
     class Usuario{
 
         public function register($usuario,$pass,$conn)
         {
             $rango="user";
-            if ($pass=="admin")
+            if ($pass==$_ENV['Admin_Pass'])
             {
                 $rango="admin";
             }
@@ -25,7 +32,7 @@
                 $sql->bind_param('sss',$usuario,$pass,$rango);
                 if($sql->execute())
                 {
-                    echo "<script>alert('Registrado Exitosamente')</script>";
+                    echo "<script>alert('Registrado Exitosamente'); window.location.href = 'login.php';</script>";
                 }
 
 
@@ -34,6 +41,11 @@
 
 
 
+        }
+
+        public function login()
+        {
+            
         }
 
     }
