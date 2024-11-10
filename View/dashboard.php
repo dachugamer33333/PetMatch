@@ -1,11 +1,30 @@
 <?php
-    require '../Controller/config.php';
-    session_start();
-    $config=new Usuario;
+require '../Controller/config.php';
+session_start();
 
+$config = new Usuario;
 
+// Inicializa la sesión si no existe
+if (!isset($_SESSION['mostrarMas'])) {
+    $_SESSION['mostrarMas'] = 5; // Inicializa el valor.
+}
 
+if (isset($_POST['env']) && $_POST['env'] == "Mostrar mas") {
+    $_SESSION['mostrarMas'] += 5; // Incrementa 5 si el botón fue presionado.
+}
+
+echo "Mostrar más: " . $_SESSION['mostrarMas']; // Muestra el valor actualizado.
+
+if(isset($_POST['cerrar']))
+{
+    $config->logout();
+}
 ?>
+    
+
+
+
+
 
 
 
@@ -20,6 +39,9 @@
         <div class="flex items-center justify-between mb-4">
             <div class="text-4xl font-bold">PETMATCH</div>
             <div class="flex items-center space-x-4">
+            <form method="post">
+                <input type="submit" name="cerrar" value="Cerrar secion" class="p-2 bg-red-500 text-white rounded" >
+            </form>
                 <i class="fas fa-bell"></i>
                 <i class="fas fa-comment-dots relative">
                     <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">1</span>
@@ -28,6 +50,7 @@
                     <span>User</span>
                     <i class="fas fa-user-circle text-2xl"></i>
                 </div>
+               
             </div>
         </div>
 
@@ -52,27 +75,14 @@
             <div class="w-1/3 space-y-4">
                 <?php
 
-                    $config->pb($conn)
+                    $config->pb($conn,$_SESSION['mostrarMas'])
 
                 ?>
-                <div class="p-4 bg-white rounded shadow flex items-center space-x-4">
-                    <div class="bg-green-200 rounded-full w-12 h-12 flex items-center justify-center">
-                        <i class="fas fa-user text-green-600"></i>
-                    </div>
-                    <div>
-                        <div class="font-bold">Jasmin rosalba</div>
-                        <div>Ya no puedo tener a mi perro me mudare por cuestiones de trabajo</div>
-                    </div>
-                </div>
-                <div class="p-4 bg-white rounded shadow flex items-center space-x-4">
-                    <div class="bg-red-200 rounded-full w-12 h-12 flex items-center justify-center">
-                        <i class="fas fa-user text-red-600"></i>
-                    </div>
-                    <div>
-                        <div class="font-bold">Juan Lopex</div>
-                        <div>Mi loro esta siendo atacado constantemente por mi perro ya no puedo tenerlo</div>
-                    </div>
-                </div>
+                  
+                  <form method="post">
+                <input type="submit" name="env" value="Mostrar mas" class="p-2 bg-blue-500 text-white rounded">
+            </form>
+            
             </div>
 
             <!-- Right Column -->

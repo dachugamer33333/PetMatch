@@ -60,11 +60,16 @@
                     $_SESSION['rango']=$user['Rango'];
                     echo "<script>alert('Secion Iniciada'); window.location.href = 'dashboard.php';</script>";
                 }
+                else
+                {
+                    echo "<script>alert('Contraseña o Usuario Incorrectos'); window.location.href = 'register.php';</script>";
+                }
             
         }
 
-        public function pb($conn)
+        public function pb($conn,$mostarMas)
         {
+            $count=0;
             $sql=$conn->query("select * from publicacion");
             while($row=$sql->fetch_assoc())
             {
@@ -74,8 +79,11 @@
                 $consul->execute();
                 $consul=$consul->get_result();
                 $result=$consul->fetch_assoc();
+                $count++;
 
-                echo '<div class="p-4 bg-white rounded shadow flex items-center space-x-4">
+                if($count <= $mostarMas)
+                {
+                      echo '<div class="p-4 bg-white rounded shadow flex items-center space-x-4">
                     <div class="bg-yellow-200 rounded-full w-12 h-12 flex items-center justify-center">
                         <i class="fas fa-user text-yellow-600"></i>
                     </div>
@@ -84,7 +92,15 @@
                         <div>' . $row['descripcion'] . '</div>
                     </div>
                 </div>';
+                }
+              
             }
+        }
+
+        public function logout()
+        {
+            session_destroy();
+            echo "<script> alert('ha cerrado secion correctamente'); window.location.href = 'login.php';</script>";
         }
 
     }
