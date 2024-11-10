@@ -63,6 +63,30 @@
             
         }
 
+        public function pb($conn)
+        {
+            $sql=$conn->query("select * from publicacion");
+            while($row=$sql->fetch_assoc())
+            {
+                $consul=$conn->prepare("select name_user from usuarios where id = ? ");
+                $id_user=$row['usuario_id'];
+                $consul->bind_param('s',$id_user);
+                $consul->execute();
+                $consul=$consul->get_result();
+                $result=$consul->fetch_assoc();
+
+                echo '<div class="p-4 bg-white rounded shadow flex items-center space-x-4">
+                    <div class="bg-yellow-200 rounded-full w-12 h-12 flex items-center justify-center">
+                        <i class="fas fa-user text-yellow-600"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold">'. $result['name_user'] .'</div>
+                        <div>' . $row['descripcion'] . '</div>
+                    </div>
+                </div>';
+            }
+        }
+
     }
 
 

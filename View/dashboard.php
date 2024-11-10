@@ -1,3 +1,14 @@
+<?php
+    require '../Controller/config.php';
+    session_start();
+    $config=new Usuario;
+
+
+
+?>
+
+
+
 <html>
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -39,15 +50,11 @@
         <div class="flex space-x-4">
             <!-- Left Column -->
             <div class="w-1/3 space-y-4">
-                <div class="p-4 bg-white rounded shadow flex items-center space-x-4">
-                    <div class="bg-yellow-200 rounded-full w-12 h-12 flex items-center justify-center">
-                        <i class="fas fa-user text-yellow-600"></i>
-                    </div>
-                    <div>
-                        <div class="font-bold">Jesus Martines taboada</div>
-                        <div>Doy a mi gato en adopcion porque no puedo tenerlo debido</div>
-                    </div>
-                </div>
+                <?php
+
+                    $config->pb($conn)
+
+                ?>
                 <div class="p-4 bg-white rounded shadow flex items-center space-x-4">
                     <div class="bg-green-200 rounded-full w-12 h-12 flex items-center justify-center">
                         <i class="fas fa-user text-green-600"></i>
