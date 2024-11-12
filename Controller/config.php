@@ -58,6 +58,7 @@
                     $_SESSION['usuario']=$user['name_user'];
                     $_SESSION['id']=$user['id'];
                     $_SESSION['rango']=$user['Rango'];
+                    setcookie('id',$_SESSION['id']);
                     echo "<script>alert('Secion Iniciada'); window.location.href = 'dashboard.php';</script>";
                 }
                 else
@@ -101,6 +102,22 @@
         {
             session_destroy();
             echo "<script> alert('ha cerrado secion correctamente'); window.location.href = 'login.php';</script>";
+        }
+
+        public function btns()
+        {
+            if(isset($_SESSION['usuario']) && isset($_SESSION['id']) )
+            {
+                echo '<form method="post">
+                <input type="submit" name="cerrar" value="Cerrar secion" class="p-2 bg-red-500 text-white rounded" >
+            </form>';
+            }
+            else
+            {
+                echo '<form method="post">
+                <input type="submit" name="cerrar" value="Login" class="p-2 bg-green-500 text-white rounded" >
+            </form>';
+            }
         }
 
     }

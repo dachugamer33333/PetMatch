@@ -17,7 +17,15 @@ echo "Mostrar más: " . $_SESSION['mostrarMas']; // Muestra el valor actualizado
 
 if(isset($_POST['cerrar']))
 {
-    $config->logout();
+    if($_POST['cerrar']== 'Cerrar secion')
+    {
+        $config->logout();
+    }
+    else
+    {
+        header('Location:login.php');
+    }
+
 }
 ?>
     
@@ -39,9 +47,10 @@ if(isset($_POST['cerrar']))
         <div class="flex items-center justify-between mb-4">
             <div class="text-4xl font-bold">PETMATCH</div>
             <div class="flex items-center space-x-4">
-            <form method="post">
-                <input type="submit" name="cerrar" value="Cerrar secion" class="p-2 bg-red-500 text-white rounded" >
-            </form>
+                <?php
+                    $config->btns();
+
+                ?>
                 <i class="fas fa-bell"></i>
                 <i class="fas fa-comment-dots relative">
                     <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">1</span>
