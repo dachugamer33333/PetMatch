@@ -120,6 +120,28 @@
             }
         }
 
+        public function publicar($conn,$foto,$descripcion,$edad,$especie)
+        {
+            if(isset($_SESSION['id']))
+            {
+
+                $usuario_id=$_SESSION['id'];
+                $estado='pendiente';
+                $fecha=date('Y-m-d');
+                $sql=$conn->prepare('insert into publicacion(descripcion,fecha_publicacion,estado,raza,edad,foto,usuario_id) values (?,?,?,?,?,?,?)');
+                $sql->bind_param('sssssss',$descripcion,$fecha,$estado,$especie,$edad,$foto,$usuario_id);
+                if($sql->execute())
+                {
+                    echo '<script>alert("Publicacion esperando a ser aceptada")</script>';
+                }
+                else{
+                    echo '<script>alert("Hubo un problema de conexion")</script>';
+                } 
+            }
+            
+
+        }
+
     }
 
 

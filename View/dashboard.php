@@ -51,6 +51,7 @@ if(isset($_POST['cerrar']))
                     $config->btns();
 
                 ?>
+                <button onclick=""><a href="publicar.php">Publicar</a></button>
                 <i class="fas fa-bell"></i>
                 <i class="fas fa-comment-dots relative">
                     <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">1</span>
@@ -116,5 +117,13 @@ if(isset($_POST['cerrar']))
             </div>
         </div>
     </div>
+    <script>
+       
+
+        
+        
+        
+        
+    </script>
 </body>
 </html>
