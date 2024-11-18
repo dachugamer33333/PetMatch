@@ -91,6 +91,7 @@
                     <div>
                         <div class="font-bold">'. $result['name_user'] .'</div>
                         <div>' . $row['descripcion'] . '</div>
+                        <div> <form action="publicacion.php" method="POST"> <button name="id" class="p-1 bg-green-500 text-white rounded" type="submit" value="'.$row['id'].'">Ver Mas </button> </form>  </div>
                     </div>
                 </div>';
                 }

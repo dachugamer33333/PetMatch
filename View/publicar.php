@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     $especie=isset($_POST['especie']) ? $_POST['especie'] : '';
     if(isset($_FILES['foto']))
     {
-        $foto=$_FILES['foto']['tpm_name'];
+        $foto=$_FILES['foto']['tmp_name'];
         $foto=file_get_contents($foto);
     }
     else{
