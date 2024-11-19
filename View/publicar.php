@@ -17,14 +17,48 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     $descripcion=isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
     $edad=isset($_POST['edad']) ? $_POST['edad'] : '';
     $especie=isset($_POST['especie']) ? $_POST['especie'] : '';
-    if(isset($_FILES['foto']))
-    {
-        $foto=$_FILES['foto']['tmp_name'];
-        $foto=file_get_contents($foto);
-    }
-    else{
+    $foto;
+    if (isset($_FILES['foto'])) {
+        $error = $_FILES['foto']['error'];
+        if ($error === UPLOAD_ERR_OK) {
+            $foto = $_FILES['foto']['tmp_name'];
+            $foto = file_get_contents($foto);
+            // Aquí puedes proceder con la inserción en la base de datos.
+            echo "Imagen subida correctamente.";
+        } else {
+            // Mostrar un mensaje de error detallado
+            switch ($error) {
+                case UPLOAD_ERR_INI_SIZE:
+                    echo "El archivo excede el tamaño máximo permitido por el servidor.";
+                    break;
+                case UPLOAD_ERR_FORM_SIZE:
+                    echo "El archivo excede el tamaño máximo permitido por el formulario.";
+                    break;
+                case UPLOAD_ERR_PARTIAL:
+                    echo "El archivo se subió parcialmente.";
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    echo "No se subió ningún archivo.";
+                    break;
+                case UPLOAD_ERR_NO_TMP_DIR:
+                    echo "Falta una carpeta temporal en el servidor.";
+                    break;
+                case UPLOAD_ERR_CANT_WRITE:
+                    echo "Error al escribir el archivo en el disco.";
+                    break;
+                case UPLOAD_ERR_EXTENSION:
+                    echo "La subida del archivo fue detenida por una extensión de PHP.";
+                    break;
+                default:
+                    echo "Error desconocido al subir el archivo.";
+                    break;
+            }
+        }
+    } else {
+        echo "No se seleccionó ninguna imagen.";
         $foto="";
     }
+    
     
     $config->publicar($conn,$foto,$descripcion,$edad,$especie);
 }
@@ -168,7 +202,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     </style>
 </head>
 <body>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <div class="form-title">
             <img src="https://img.icons8.com/color/48/pet.png" alt="Pet Icon">
             <h2>Publicar</h2>

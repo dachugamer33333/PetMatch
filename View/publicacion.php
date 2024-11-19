@@ -183,7 +183,7 @@
         <div class="user-info">
             <img src="https://via.placeholder.com/80" alt="User Icon">
             <h2>Publicación de <?php echo $result2['name_user']; ?></h2>
-            <button class="secondary">Regresar</button>
+            <button class="secondary" onclick="rem()">Regresar</button>
         </div>
 
         <!-- Description -->
@@ -202,7 +202,7 @@
         <div class="image-container">
             <h3>Imagen del animal:</h3>
             <?php
-            if (!empty($result['foto'])) {
+            if (isset($result['foto'])) {
                 echo '<img src="data:image/jpeg;base64,' . base64_encode($result['foto']) . '" alt="Imagen del animal">';
             } else {
                 echo '<p>No hay imagen disponible.</p>';
@@ -215,6 +215,8 @@
             <button>Enviar Mensaje</button>
         </div>
     </div>
+
+    <script src="renviar.js"></script>
 
 </body>
 </html>
