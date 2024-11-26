@@ -71,7 +71,7 @@
         public function pb($conn,$mostarMas)
         {
             $count=0;
-            $sql=$conn->query("select * from publicacion");
+            $sql=$conn->query("select * from publicacion where estado = 'publicado'");
             while($row=$sql->fetch_assoc())
             {
                 $consul=$conn->prepare("select name_user from usuarios where id = ? ");
@@ -99,6 +99,28 @@
             }
         }
 
+        public function pba($conn)
+        {
+            $sql=$conn->query("select * from publicacion where estado = 'pendiente'");
+            while($row=$sql->fetch_assoc())
+            {
+                $consul=$conn->prepare("select name_user from usuarios where id = ? ");
+                $id_user=$row['usuario_id'];
+                $consul->bind_param('s',$id_user);
+                $consul->execute();
+                $consul=$consul->get_result();
+                $result=$consul->fetch_assoc();
+             
+
+                
+                    echo "<tr><td>".$row['id']."</td><td>".$row['descripcion']."</td><td>".$row['fecha_publicacion']."</td><td>".$result['name_user']."</td><td>".$row['edad']."</td><td>".$row['raza']."</td><td>".$row['estado']."</td><td><form method='post'><button type ='submit' class='aceptar' name='aceptar' value='".$row['id']."'>Aceptar</button></td><td><form method='post'><button type ='submit' class='rechazar' name='rechazar' value='".$row['id']."'>Rechazar</button></td><tr>";
+                
+  
+            }
+
+
+        }
+
         public function logout()
         {
             session_destroy();
@@ -118,6 +140,11 @@
                 echo '<form method="post">
                 <input type="submit" name="cerrar" value="Login" class="p-2 bg-green-500 text-white rounded" >
             </form>';
+            }
+
+            if ($_SESSION['rango']=="admin")
+            {
+                echo "<button onclick='remadm()' class='p-2 bg-green-500 text-white rounded'>Admin<button>";
             }
         }
 

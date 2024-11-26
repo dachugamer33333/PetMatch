@@ -117,13 +117,6 @@ if(isset($_POST['cerrar']))
             </div>
         </div>
     </div>
-    <script>
-       
-
-        
-        
-        
-        
-    </script>
+    <script src="renviar.js"></script>
 </body>
 </html>
