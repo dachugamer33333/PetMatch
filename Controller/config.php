@@ -91,7 +91,8 @@
                     <div>
                         <div class="font-bold">'. $result['name_user'] .'</div>
                         <div>' . $row['descripcion'] . '</div>
-                        <div> <form action="publicacion.php" method="POST"> <button name="id" class="p-1 bg-green-500 text-white rounded" type="submit" value="'.$row['id'].'">Ver Mas </button> </form>  </div>
+                        <div> <form action="publicacion.php" method="POST"> <button name="id" class="p-1 bg-green-500 text-white rounded" type="submit" value="'.$row['id'].'">Ver Mas </button> </form>
+                        <form action="mensajes.php" method="POST"><button name="idm" class="p-1 bg-green-500 text-white rounded" type="submit" value="'.$row['id'].'">Chat</button></form></div>
                     </div>
                 </div>';
                 }
@@ -172,7 +173,76 @@
 
     }
 
-
-
+    class Chats
+    {
+        // Mostrar la lista de receptores únicos con la última fecha de mensaje
+        public function ver($conn, $id_emisor, $id_receptor)
+        {
+            $sql = $conn->prepare("
+            SELECT DISTINCT
+                CASE
+                    WHEN m.emisor_id = ? THEN m.receptor_id
+                    WHEN m.receptor_id = ? THEN m.emisor_id
+                END AS user_id,
+                u.name_user AS user_name,
+                MAX(m.fecha) AS last_date
+            FROM mensaje m
+            JOIN usuarios u ON u.id = CASE
+                WHEN m.emisor_id = ? THEN m.receptor_id
+                WHEN m.receptor_id = ? THEN m.emisor_id
+            END
+            WHERE m.emisor_id = ? OR m.receptor_id = ?
+            GROUP BY user_id, u.name_user
+            ORDER BY last_date DESC
+        ");
+        $sql->bind_param('iiiiii', $id_emisor, $id_emisor, $id_emisor, $id_emisor, $id_emisor, $id_emisor);
+        $sql->execute();
+        $result = $sql->get_result();
+        
+        while ($row = $result->fetch_assoc()) {
+            $user_id = $row['user_id'];
+            $user_name = $row['user_name'];
+            $last_date = $row['last_date'];
+        
+            echo "
+            <tr>
+                <td>
+                    <form method='POST'>
+                        <button type='submit' name='reca' value='{$user_id}'>Abrir Chat</button>
+                    </form>
+                </td>
+                <td>{$user_name}</td>
+                <td>{$last_date}</td>
+            </tr>";
+        }
+        }
+    
+        // Mostrar los mensajes entre el usuario actual y el receptor seleccionado
+        public function mensajesVer($conn, $id_rec, $id_emisor)
+        {
+            $sql = $conn->prepare("
+                SELECT * 
+                FROM mensaje 
+                WHERE (receptor_id = ? AND emisor_id = ?) 
+                   OR (receptor_id = ? AND emisor_id = ?)
+                ORDER BY fecha ASC
+            ");
+            $sql->bind_param('iiii', $id_rec, $id_emisor, $id_emisor, $id_rec);
+            $sql->execute();
+            $result = $sql->get_result();
+    
+            // Mostrar los mensajes
+            while ($row = $result->fetch_assoc()) {
+                if ($row['emisor_id'] == $id_emisor) {
+                    // Mensaje enviado
+                    echo "<p class='emi'>{$row['contenido']}</p>";
+                } else {
+                    // Mensaje recibido
+                    echo "<p class='rec'>{$row['contenido']}</p>";
+                }
+            }
+        }
+    }
+    
 
 ?>
