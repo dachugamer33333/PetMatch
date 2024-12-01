@@ -34,7 +34,6 @@ if(isset($_POST['cerrar']))
 
 
 
-
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,11 +42,22 @@ if(isset($_POST['cerrar']))
     <title>PetMatch</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        /* Variables para colores */
+        :root {
+            --primary-color: #333; /* Gris oscuro */
+            --secondary-color: #f9f9f9; /* Fondo claro */
+            --highlight-color: #ff6f61; /* Naranja */
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --text-color: #555; /* Gris para texto */
+        }
+
         /* General Styles */
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            line-height: 1.6;
         }
 
         .container {
@@ -61,13 +71,19 @@ if(isset($_POST['cerrar']))
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            padding: 15px 20px;
+            background-color: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .header .logo {
-            font-size: 36px;
+            font-size: 28px;
             font-weight: bold;
-            color: #333;
+            color: var(--highlight-color);
         }
 
         .header .nav {
@@ -78,170 +94,138 @@ if(isset($_POST['cerrar']))
 
         .header .nav a {
             text-decoration: none;
-            color: #333;
+            color: #fff;
             font-size: 16px;
             font-weight: bold;
+            transition: color 0.3s ease;
         }
 
         .header .nav a:hover {
-            color: #007bff;
+            color: var(--highlight-color);
         }
 
-        .header .nav .user {
+        .header .user {
             display: flex;
             align-items: center;
-            gap: 5px;
-            font-size: 18px;
-            color: #333;
+            gap: 8px;
         }
 
-        .header .nav .user i {
-            font-size: 24px;
+        .header .user i {
+            font-size: 20px;
         }
 
         /* Content */
         .content {
-            width: 100%;
+            margin-top: 30px;
+            animation: fadeIn 1.5s ease;
         }
 
         .card {
             background: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            margin-bottom: 15px;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
         }
 
-        .card .btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
+        .avatar {
+            background-color: #ffeb3b;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #ffc107;
+        }
+
+        .card .content {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        .description {
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 15px;
+            background-color: var(--highlight-color);
             color: #fff;
             border: none;
             border-radius: 5px;
-            text-align: center;
             font-size: 16px;
             cursor: pointer;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        .card .btn:hover {
-            background-color: #0056b3;
+        .btn:hover {
+            background-color: #e55b54;
+            transform: scale(1.05);
         }
 
-        .card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    margin-bottom: 20px;
-}
+        .btn:active {
+            transform: scale(0.95);
+        }
 
-.avatar {
-    background-color: #ffeb3b;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    color: #ffc107;
-}
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
 
-.content {
-    flex: 1;
-}
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.user-name {
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 8px;
-    color: #333;
-}
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-wrap: wrap;
+                text-align: center;
+            }
 
-.description {
-    margin-bottom: 12px;
-    color: #555;
-}
+            .header .nav {
+                justify-content: center;
+                margin-top: 10px;
+            }
 
-.actions {
-    display: flex;
-    gap: 10px;
-}
+            .card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
 
-.actions form {
-    margin: 0;
-}
-
-.btn {
-    padding: 8px 12px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.btn:hover {
-    background-color: #218838;
-}
-
-.form {
-    margin: 0;
-    display: inline-block;
-}
-
-.btn {
-    padding: 8px 12px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-
-.btn-danger {
-    background-color: #dc3545;
-}
-
-.btn-danger:hover {
-    background-color: #c82333;
-}
-
-.btn-success {
-    background-color: #28a745;
-}
-
-.btn-success:hover {
-    background-color: #218838;
-}
-
-.btn-admin {
-    padding: 8px 12px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-
-.btn-admin:hover {
-    background-color: #0056b3;
-}
-
-
+            .btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -252,17 +236,13 @@ if(isset($_POST['cerrar']))
             <div class="nav">
                 <a href="mensajes.php">Chat</a>
                 <a href="publicar.php">Publicar</a>
-               <?php
-               $config->btns();
-               ?>
+                <?php $config->btns(); ?>
                 <div class="user">
                     <span>
                         <?php
-                            if(isset($_SESSION['usuario']))
-                            {
+                            if (isset($_SESSION['usuario'])) {
                                 echo $_SESSION['usuario'];
-                            }
-                            else{
+                            } else {
                                 echo 'user';
                             }
                         ?>
@@ -274,9 +254,7 @@ if(isset($_POST['cerrar']))
 
         <!-- Content -->
         <div class="content">
-            <?php
-                $config->pb($conn, $_SESSION['mostrarMas']);
-            ?>
+            <?php $config->pb($conn, $_SESSION['mostrarMas']); ?>
             <form method="post">
                 <button type="submit" name="env" value="Mostrar mas" class="btn">Mostrar más</button>
             </form>

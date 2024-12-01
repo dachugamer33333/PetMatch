@@ -76,11 +76,19 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publicar</title>
     <style>
+        /* Variables para colores */
+        :root {
+            --primary-color: #333; /* Gris oscuro */
+            --secondary-color: #f9f9f9; /* Fondo claro */
+            --highlight-color: #ff6f61; /* Naranja */
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
         /* Estilo general */
         body {
             font-family: 'Poppins', Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
             margin: 0;
             padding: 0;
             display: flex;
@@ -89,27 +97,30 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             min-height: 100vh;
         }
 
-        h2 {
-            text-align: center;
-            font-size: 28px;
-            color: #444;
-            margin-bottom: 20px;
-        }
-
         form {
             background-color: #fff;
             padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            max-width: 450px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            max-width: 500px;
             width: 100%;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--highlight-color);
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
         label {
             display: block;
             font-weight: bold;
             margin-bottom: 8px;
-            color: #555;
+            color: var(--primary-color);
         }
 
         textarea,
@@ -120,10 +131,10 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             width: 100%;
             padding: 12px;
             margin-bottom: 15px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--shadow-color);
             border-radius: 6px;
-            font-size: 14px;
-            transition: all 0.3s ease;
+            font-size: 16px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         textarea {
@@ -131,14 +142,9 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             min-height: 120px;
         }
 
-        input[type="file"] {
-            padding: 6px;
-            font-size: 14px;
-        }
-
         input[type="submit"] {
-            background-color: #4caf50;
-            color: white;
+            background-color: var(--highlight-color);
+            color: #fff;
             border: none;
             cursor: pointer;
             font-size: 16px;
@@ -147,15 +153,15 @@ if($_SERVER['REQUEST_METHOD']=='POST')
         }
 
         input[type="submit"]:hover {
-            background-color: #43a047;
+            background-color: #e55b54;
         }
 
         textarea:focus, 
         input:focus, 
         select:focus {
             outline: none;
-            border-color: #4caf50;
-            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            border-color: var(--highlight-color);
+            box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
         }
 
         select {
@@ -174,10 +180,6 @@ if($_SERVER['REQUEST_METHOD']=='POST')
             width: 40px;
             height: 40px;
             margin-right: 10px;
-        }
-
-        .form-title h2 {
-            margin: 0;
         }
 
         @media (max-width: 768px) {

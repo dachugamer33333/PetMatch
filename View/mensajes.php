@@ -76,16 +76,26 @@ if($contador == 1)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mensajes - Petmatch Chat</title>
     <style>
+        /* Variables para colores */
+        :root {
+            --primary-color: #333; /* Gris oscuro */
+            --secondary-color: #f9f9f9; /* Fondo claro */
+            --highlight-color: #ff6f61; /* Naranja */
+            --light-border: #ddd; /* Bordes suaves */
+            --box-shadow: rgba(0, 0, 0, 0.1);
+            --success-color: #28a745; /* Verde elegante */
+        }
+
         /* General */
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: space-between;
-            background-color: #f8f9fa; /* Fondo blanco elegante */
-            color: #333; /* Texto en gris oscuro */
-            height: 100vh; /* Ocupa toda la pantalla */
+            background-color: var(--secondary-color); /* Fondo claro */
+            color: var(--primary-color);
+            height: 100vh;
         }
 
         header {
@@ -96,7 +106,7 @@ if($contador == 1)
             align-items: center;
             font-size: 1.2em;
             font-weight: bold;
-            color: #333;
+            color: var(--primary-color);
             margin-top: 10px;
         }
 
@@ -109,19 +119,22 @@ if($contador == 1)
         h2 {
             font-size: 1.5em;
             margin-bottom: 20px;
-            color: #555; /* Color sutil para encabezados */
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--highlight-color);
+            display: inline-block;
+            padding-bottom: 5px;
         }
 
         /* Contenedor de la tabla */
         .table-container {
-            width: 500px;
+            width: 450px;
             height: 100%; /* Ocupa toda la altura de la pantalla */
-            border: 1px solid #ddd;
+            border: 1px solid var(--light-border);
             padding: 20px;
-            background-color: #fff; /* Fondo blanco */
+            background-color: #fff;
             margin-right: 10px;
-            border-radius: 8px; /* Bordes suaves */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px var(--box-shadow);
             overflow-y: auto; /* Scroll vertical solo para esta sección */
         }
 
@@ -133,12 +146,12 @@ if($contador == 1)
         th, td {
             text-align: left;
             padding: 10px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--light-border);
         }
 
         th {
             background-color: #f1f1f1; /* Fondo claro para encabezados */
-            color: #333; /* Texto oscuro */
+            color: var(--primary-color);
             font-weight: bold;
         }
 
@@ -150,56 +163,71 @@ if($contador == 1)
         .form-container {
             flex: 1; /* Ocupa el espacio restante */
             padding: 20px;
-            background-color: #fff; /* Fondo blanco */
-            border-left: 1px solid #ddd;
+            background-color: #fff;
+            border-left: 1px solid var(--light-border);
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            box-shadow: 0 4px 6px var(--box-shadow);
         }
 
         .messages-box {
             height: 300px; /* Altura fija con scroll */
-            border: 1px solid #ddd;
+            border: 1px solid var(--light-border);
             padding: 10px;
             overflow-y: auto; /* Scroll vertical */
             margin-bottom: 20px;
             border-radius: 8px;
             background-color: #f8f9fa;
+            box-shadow: 0 2px 4px var(--box-shadow);
         }
 
         textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--light-border);
             border-radius: 8px;
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
             font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--highlight-color);
+            box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
         }
 
         button {
             width: 150px;
             padding: 10px;
-            background-color: #28a745; /* Verde elegante */
-            color: white;
+            background-color: var(--success-color); /* Verde */
+            color: #fff;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1em;
             font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         button:hover {
-            background-color: #218838; /* Verde más oscuro al pasar el cursor */
+            background-color: #218838; /* Verde más oscuro */
+            transform: scale(1.05);
         }
 
-        /* Efecto para elementos */
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* Mensajes */
         .rec {
             margin: 5px 0;
             padding: 10px;
             background-color: #fff;
             border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px var(--box-shadow);
+            animation: fadeInLeft 0.5s ease;
         }
 
         .emi {
@@ -207,7 +235,31 @@ if($contador == 1)
             padding: 10px;
             background-color: lightgreen;
             border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px var(--box-shadow);
+            animation: fadeInRight 0.5s ease;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
     </style>
 </head>
@@ -223,8 +275,7 @@ if($contador == 1)
         <h2>Mis Chats</h2>
         <table>
             <tr>
-                <th>boton</th>
-
+                <th>Botón</th>
                 <th>Usuario</th>
                 <th>Fecha</th>
             </tr>
@@ -249,7 +300,7 @@ if($contador == 1)
         </div>
 
         <form method="GET">
-        <input type="hidden" name="reca" value="<?php echo htmlspecialchars($id_rec); ?>">
+            <input type="hidden" name="reca" value="<?php echo htmlspecialchars($id_rec); ?>">
             <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí"></textarea>
             <button name="env" type="submit">Enviar</button>
         </form>

@@ -30,9 +30,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PetMatch - Publicación</title>
     <style>
+        /* Variables de color */
+        :root {
+            --primary-color: #333; /* Gris oscuro */
+            --secondary-color: #f9f9f9; /* Fondo claro */
+            --highlight-color: #ff6f61; /* Naranja */
+            --text-color: #555; /* Texto gris */
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --success-color: #28a745; /* Verde */
+            --secondary-button-color: #6c757d; /* Gris oscuro botones secundarios */
+        }
+
+        /* Estilo general */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: var(--secondary-color);
             margin: 0;
             padding: 0;
             display: flex;
@@ -41,12 +53,13 @@
         }
 
         .header {
-            background-color: #000;
-            color: white;
+            background-color: var(--primary-color);
+            color: #fff;
             padding: 20px;
             text-align: center;
             font-size: 32px;
             font-weight: bold;
+            text-transform: uppercase;
         }
 
         .main-container {
@@ -62,15 +75,15 @@
         .user-info {
             display: flex;
             align-items: center;
-            background-color: white;
+            background-color: #fff;
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px var(--shadow-color);
             position: relative;
         }
 
         .user-info img {
-            background-color: #007bff;
+            background-color: var(--highlight-color);
             border-radius: 50%;
             width: 80px;
             height: 80px;
@@ -85,58 +98,47 @@
         .user-info h2 {
             margin: 0;
             font-size: 24px;
-            color: #333;
+            color: var(--primary-color);
         }
 
         .user-info button {
             position: absolute;
             top: 20px;
             right: 20px;
-            background-color: #6c757d;
+            background-color: var(--secondary-button-color);
             color: white;
             border: none;
             padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .user-info button:hover {
             background-color: #5a6268;
+            transform: scale(1.05);
         }
 
-        .description {
-            background-color: white;
+        .description, .animal-details, .image-container {
+            background-color: #fff;
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px var(--shadow-color);
         }
 
-        .description p {
+        .description p, .animal-details div {
             font-size: 18px;
-            color: #555;
+            color: var(--text-color);
         }
 
         .animal-details {
             display: flex;
             justify-content: space-between;
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            font-size: 18px;
             font-weight: bold;
         }
 
         .animal-details span {
-            color: #007bff;
-        }
-
-        .image-container {
-            text-align: center;
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            color: var(--highlight-color);
         }
 
         .image-container img {
@@ -152,21 +154,23 @@
         }
 
         .buttons button {
-            background-color: #28a745;
+            background-color: var(--success-color);
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .buttons button:hover {
             background-color: #218838;
+            transform: scale(1.05);
         }
 
         .buttons .secondary {
-            background-color: #6c757d;
+            background-color: var(--secondary-button-color);
         }
 
         .buttons .secondary:hover {
@@ -187,9 +191,7 @@
             } else {
                 echo '<p>No hay imagen disponible.</p>';
             }
-
             ?>
-            
             <h2>Publicación de <?php echo $result2['name_user']; ?></h2>
             <button class="secondary" onclick="rem()">Regresar</button>
         </div>
@@ -219,12 +221,13 @@
         </div>
 
         <!-- Buttons -->
-         <form action="mensajes.php" method="post">
-        <div class="buttons">
-            <button type="submit" name="idm" value="<?php echo $result2['id'] ?>">Enviar Mensaje</button>
-        </div>
+        <form action="mensajes.php" method="post">
+            <div class="buttons">
+                <button type="submit" name="idm" value="<?php echo $result2['id'] ?>">Enviar Mensaje</button>
+            </div>
+        </form>
     </div>
-    </form>
+
     <script src="renviar.js"></script>
 
 </body>
