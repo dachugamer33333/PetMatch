@@ -74,7 +74,7 @@
             $sql=$conn->query("select * from publicacion where estado = 'publicado'");
             while($row=$sql->fetch_assoc())
             {
-                $consul=$conn->prepare("select name_user from usuarios where id = ? ");
+                $consul=$conn->prepare("select name_user,id from usuarios where id = ? ");
                 $id_user=$row['usuario_id'];
                 $consul->bind_param('s',$id_user);
                 $consul->execute();
@@ -84,17 +84,24 @@
 
                 if($count <= $mostarMas)
                 {
-                      echo '<div class="p-4 bg-white rounded shadow flex items-center space-x-4">
-                    <div class="bg-yellow-200 rounded-full w-12 h-12 flex items-center justify-center">
-                        <i class="fas fa-user text-yellow-600"></i>
+                    echo '<div class="card">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
                     </div>
-                    <div>
-                        <div class="font-bold">'. $result['name_user'] .'</div>
-                        <div>' . $row['descripcion'] . '</div>
-                        <div> <form action="publicacion.php" method="POST"> <button name="id" class="p-1 bg-green-500 text-white rounded" type="submit" value="'.$row['id'].'">Ver Mas </button> </form>
-                        <form action="mensajes.php" method="POST"><button name="idm" class="p-1 bg-green-500 text-white rounded" type="submit" value="'.$row['id'].'">Chat</button></form></div>
+                    <div class="content">
+                        <div class="user-name">'. $result['name_user'] .'</div>
+                        <div class="description">' . $row['descripcion'] . '</div>
+                        <div class="actions">
+                            <form action="publicacion.php" method="POST">
+                                <button name="id" class="btn" type="submit" value="'.$row['id'].'">Ver Más</button>
+                            </form>
+                            <form action="mensajes.php" method="POST">
+                                <button name="idm" class="btn" type="submit" value="'.$result['id'].'">Chat</button>
+                            </form>
+                        </div>
                     </div>
-                </div>';
+                  </div>';
+            
                 }
               
             }
@@ -130,23 +137,21 @@
 
         public function btns()
         {
-            if(isset($_SESSION['usuario']) && isset($_SESSION['id']) )
-            {
-                echo '<form method="post">
-                <input type="submit" name="cerrar" value="Cerrar secion" class="p-2 bg-red-500 text-white rounded" >
-            </form>';
-            }
-            else
-            {
-                echo '<form method="post">
-                <input type="submit" name="cerrar" value="Login" class="p-2 bg-green-500 text-white rounded" >
-            </form>';
+            
+            if (isset($_SESSION['usuario']) && isset($_SESSION['id'])) {
+                echo '<form method="post" class="form">
+                        <input type="submit" name="cerrar" value="Cerrar sesión" class="btn btn-danger">
+                    </form>';
+            } else {
+                echo '<form method="post" class="form">
+                        <input type="submit" name="cerrar" value="Login" class="btn btn-success">
+                    </form>';
             }
 
-            if ($_SESSION['rango']=="admin")
-            {
-                echo "<button onclick='remadm()' class='p-2 bg-green-500 text-white rounded'>Admin<button>";
+            if (isset($_SESSION['rango']) && $_SESSION['rango'] == "admin") {
+                echo '<button onclick="remadm()" class="btn btn-admin">Admin</button>';
             }
+
         }
 
         public function publicar($conn,$foto,$descripcion,$edad,$especie)

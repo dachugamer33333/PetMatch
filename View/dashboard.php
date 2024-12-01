@@ -35,86 +35,241 @@ if(isset($_POST['cerrar']))
 
 
 
-
-<html>
+    <!DOCTYPE html>
+<html lang="en">
 <head>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetMatch</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header .logo {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .header .nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header .nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .header .nav a:hover {
+            color: #007bff;
+        }
+
+        .header .nav .user {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .header .nav .user i {
+            font-size: 24px;
+        }
+
+        /* Content */
+        .content {
+            width: 100%;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .card .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .card .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.avatar {
+    background-color: #ffeb3b;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #ffc107;
+}
+
+.content {
+    flex: 1;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.description {
+    margin-bottom: 12px;
+    color: #555;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.actions form {
+    margin: 0;
+}
+
+.btn {
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #218838;
+}
+
+.form {
+    margin: 0;
+    display: inline-block;
+}
+
+.btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-admin {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-admin:hover {
+    background-color: #0056b3;
+}
+
+
+    </style>
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto p-4">
+<body>
+    <div class="container">
         <!-- Header -->
-        <div class="flex items-center justify-between mb-4">
-            <div class="text-4xl font-bold">PETMATCH</div>
-            <div class="flex items-center space-x-4">
-                <?php
-                    $config->btns();
-
-                ?>
-                <button onclick=""><a href="publicar.php">Publicar</a></button>
-                <i class="fas fa-bell"></i>
-                <i class="fas fa-comment-dots relative">
-                    <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1">1</span>
-                </i>
-                <div class="flex items-center space-x-2">
+        <div class="header">
+            <div class="logo">PETMATCH</div>
+            <div class="nav">
+                <a href="mensajes.php">Chat</a>
+                <a href="publicar.php">Publicar</a>
+               <?php
+               $config->btns();
+               ?>
+                <div class="user">
                     <span>User</span>
-                    <i class="fas fa-user-circle text-2xl"></i>
+                    <i class="fas fa-user-circle"></i>
                 </div>
-               
             </div>
         </div>
 
-        <!-- Search Bar -->
-        <div class="mb-4">
-            <input type="text" placeholder="Buscar" class="w-full p-2 border rounded">
-        </div>
-
-        <!-- Navigation Tabs -->
-        <div class="flex space-x-4 mb-4">
-            <a href="#" class="text-blue-500 border-b-2 border-blue-500">Adopción</a>
-            <a href="#" class="text-gray-500">Asociaciones</a>
-            <a href="#" class="text-gray-500">Reportes</a>
-            <select class="border rounded p-2">
-                <option>Estados</option>
-            </select>
-        </div>
-
-        <!-- Main Content -->
-        <div class="flex space-x-4">
-            <!-- Left Column -->
-            <div class="w-1/3 space-y-4">
-                <?php
-
-                    $config->pb($conn,$_SESSION['mostrarMas'])
-
-                ?>
-                  
-                  <form method="post">
-                <input type="submit" name="env" value="Mostrar mas" class="p-2 bg-blue-500 text-white rounded">
+        <!-- Content -->
+        <div class="content">
+            <?php
+                $config->pb($conn, $_SESSION['mostrarMas']);
+            ?>
+            <form method="post">
+                <button type="submit" name="env" value="Mostrar mas" class="btn">Mostrar más</button>
             </form>
-            
-            </div>
-
-            <!-- Right Column -->
-            <div class="w-2/3 space-y-4">
-                <div class="p-4 bg-white rounded shadow">
-                    <div class="flex items-center space-x-4 mb-4">
-                        <div class="bg-yellow-200 rounded-full w-12 h-12 flex items-center justify-center">
-                            <i class="fas fa-user text-yellow-600"></i>
-                        </div>
-                        <div>
-                            <div class="font-bold">Jesus Martines taboada</div>
-                            <div>Doy a mi gato en adopcion porque no puedo tenerlo debido a que tengo problemas economicos y me gustaria darle una mejor vida</div>
-                        </div>
-                    </div>
-                    <div class="bg-gray-200 h-48 flex items-center justify-center">
-                        <i class="fas fa-image text-gray-500 text-4xl"></i>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <input type="text" placeholder="Comenta..." class="w-full p-2 border rounded">
-                </div>
-            </div>
         </div>
     </div>
     <script src="renviar.js"></script>

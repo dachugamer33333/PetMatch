@@ -104,7 +104,8 @@
         <input type="text" name="pass" placeholder="***" required>
         
         <input type="submit" value="Login">
-        <button><a href="register.php">Register</a></button>
+       
     </form>
+    <button><a href="register.php">Register</a></button>
 </body>
 </html>

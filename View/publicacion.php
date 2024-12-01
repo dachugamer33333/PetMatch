@@ -211,11 +211,12 @@
         </div>
 
         <!-- Buttons -->
+         <form action="mensajes.php" method="post">
         <div class="buttons">
-            <button>Enviar Mensaje</button>
+            <button type="submit" name="idm" value="<?php echo $result2['id'] ?>">Enviar Mensaje</button>
         </div>
     </div>
-
+    </form>
     <script src="renviar.js"></script>
 
 </body>

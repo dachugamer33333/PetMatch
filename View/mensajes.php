@@ -13,11 +13,23 @@ if (!isset($_SESSION['id'])) {
     echo "<script>alert('Inicia sesión'); window.location.href = 'login.php'</script>";
     exit;
 }
-
+$contador=1;
 $id_emisor = $_SESSION['id'];
-$id_receptor = isset($_POST['idm']) ? $_POST['idm'] : "";
+$id_receptor = isset($_POST['idm']) ? $_POST['idm'] : 2;
+
 $fecha = date("Y-m-d H:i:s");
-$id_rec = isset($_POST['reca']) ? $_POST['reca'] : (isset($_GET['reca']) ? $_GET['reca'] : "");;
+$id_rec = isset($_POST['reca']) ? $_POST['reca'] : (isset($_GET['reca']) ? $_GET['reca'] : 1);;
+if($contador == 1)
+{
+    if($id_receptor != 2)
+    {
+        $id_rec=$id_receptor;
+        echo $id_rec;
+        $contador = 2;
+       
+    }
+}
+
 
    
     var_dump($id_rec);
@@ -39,11 +51,12 @@ $id_rec = isset($_POST['reca']) ? $_POST['reca'] : (isset($_GET['reca']) ? $_GET
     }
     
     // Insertar el mensaje si el receptor es válido
-    if  (isset($_GET['env']) && !empty($mensaje) && is_numeric($id_rec)) {
+    if  (isset($_GET['env']) && $mensaje !=0 && !empty($mensaje) && is_numeric($id_rec)) {
     
         $sql3 = $conn->prepare("INSERT INTO mensaje (contenido, fecha, emisor_id, receptor_id) VALUES (?, ?, ?, ?)");
         $sql3->bind_param('ssii', $mensaje, $fecha, $id_emisor, $id_rec);
         $sql3->execute();
+        $mensaje=0;
         
     }
 

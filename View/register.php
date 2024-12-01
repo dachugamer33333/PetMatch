@@ -105,7 +105,8 @@
         <input type="password" name="pass" placeholder="****" required><br>
         
         <input type="submit" value="Registrar">
-        <button><a href="login.php">Login</a></button>
+       
     </form>
+    <button><a href="login.php">Login</a></button>
 </body>
 </html>
