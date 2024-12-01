@@ -181,7 +181,15 @@
     <div class="main-container">
         <!-- User Info -->
         <div class="user-info">
-            <img src="https://via.placeholder.com/80" alt="User Icon">
+            <?php
+            if (isset($result['foto'])) {
+                echo '<img src="data:image/jpeg;base64,' . base64_encode($result2['foto']) . '" alt="User Icon">';
+            } else {
+                echo '<p>No hay imagen disponible.</p>';
+            }
+
+            ?>
+            
             <h2>Publicación de <?php echo $result2['name_user']; ?></h2>
             <button class="secondary" onclick="rem()">Regresar</button>
         </div>

@@ -10,7 +10,7 @@
 
     class Usuario{
 
-        public function register($usuario,$pass,$conn)
+        public function register($usuario,$pass,$conn,$foto)
         {
             $rango="user";
             if ($pass==$_ENV['Admin_Pass'])
@@ -28,8 +28,8 @@
             }
             else
             {
-                $sql=$conn->prepare("insert into usuarios(name_user,pass,Rango) values (?,?,?)");
-                $sql->bind_param('sss',$usuario,$pass,$rango);
+                $sql=$conn->prepare("insert into usuarios(name_user,pass,Rango,foto) values (?,?,?,?)");
+                $sql->bind_param('ssss',$usuario,$pass,$rango,$foto);
                 if($sql->execute())
                 {
                     echo "<script>alert('Registrado Exitosamente'); window.location.href = 'login.php';</script>";

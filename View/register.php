@@ -5,8 +5,49 @@
     {
         $usuario=isset($_POST['usuario']) ? $_POST['usuario'] : "";
         $pass=isset($_POST['pass']) ? $_POST['pass'] : "";
+        $foto;
+    if (isset($_FILES['foto'])) {
+        $error = $_FILES['foto']['error'];
+        if ($error === UPLOAD_ERR_OK) {
+            $foto = $_FILES['foto']['tmp_name'];
+            $foto = file_get_contents($foto);
+            // Aquí puedes proceder con la inserción en la base de datos.
+            echo "Imagen subida correctamente.";
+        } else {
+            // Mostrar un mensaje de error detallado
+            switch ($error) {
+                case UPLOAD_ERR_INI_SIZE:
+                    echo "El archivo excede el tamaño máximo permitido por el servidor.";
+                    break;
+                case UPLOAD_ERR_FORM_SIZE:
+                    echo "El archivo excede el tamaño máximo permitido por el formulario.";
+                    break;
+                case UPLOAD_ERR_PARTIAL:
+                    echo "El archivo se subió parcialmente.";
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    echo "No se subió ningún archivo.";
+                    break;
+                case UPLOAD_ERR_NO_TMP_DIR:
+                    echo "Falta una carpeta temporal en el servidor.";
+                    break;
+                case UPLOAD_ERR_CANT_WRITE:
+                    echo "Error al escribir el archivo en el disco.";
+                    break;
+                case UPLOAD_ERR_EXTENSION:
+                    echo "La subida del archivo fue detenida por una extensión de PHP.";
+                    break;
+                default:
+                    echo "Error desconocido al subir el archivo.";
+                    break;
+            }
+        }
+    } else {
+        echo "No se seleccionó ninguna imagen.";
+        $foto="";
+    }
 
-        $config->register($usuario,$pass,$conn);
+        $config->register($usuario,$pass,$conn,$foto);
 
 
     }
@@ -57,12 +98,27 @@
             margin: 0.5rem 0;
             font-weight: bold;
         }
-        input[type="text"], input[type="password"] {
+        input[type="text"], input[type="password"], input[type="file"] {
             width: 100%;
             padding: 0.5rem;
             margin: 0.5rem 0;
             border: 1px solid #ddd;
             border-radius: 5px;
+        }
+        .custom-file-input {
+            display: none;
+        }
+        .custom-file-label {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .custom-file-label:hover {
+            background-color: #0056b3;
         }
         input[type="submit"], button {
             background: #28a745;
@@ -97,15 +153,18 @@
         <img src="dog-logo.png" alt="Dog Logo">
         <h1>PetMatch</h1>
     </div>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <label for="usuario">Usuario:</label>
         <input type="text" placeholder="Nombre" required name="usuario"><br>
         
         <label for="pass">Password:</label>
         <input type="password" name="pass" placeholder="****" required><br>
         
+        <label for="file">Foto de perfil:</label>
+        <input type="file" id="file" name="foto" class="custom-file-input">
+        <label for="file" class="custom-file-label">Seleccionar archivo</label><br>
+        
         <input type="submit" value="Registrar">
-       
     </form>
     <button><a href="login.php">Login</a></button>
 </body>

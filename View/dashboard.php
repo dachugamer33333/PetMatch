@@ -17,7 +17,7 @@ echo "Mostrar más: " . $_SESSION['mostrarMas']; // Muestra el valor actualizado
 
 if(isset($_POST['cerrar']))
 {
-    if($_POST['cerrar']== 'Cerrar secion')
+    if($_POST['cerrar']== 'Cerrar sesión')
     {
         $config->logout();
     }
@@ -256,8 +256,18 @@ if(isset($_POST['cerrar']))
                $config->btns();
                ?>
                 <div class="user">
-                    <span>User</span>
-                    <i class="fas fa-user-circle"></i>
+                    <span>
+                        <?php
+                            if(isset($_SESSION['usuario']))
+                            {
+                                echo $_SESSION['usuario'];
+                            }
+                            else{
+                                echo 'user';
+                            }
+                        ?>
+                    </span>
+                    <a href="usuario.php"><i class="fas fa-user-circle"></i></a>
                 </div>
             </div>
         </div>
