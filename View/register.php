@@ -150,7 +150,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="dog-logo.png" alt="Dog Logo">
+        <img src="https://img.icons8.com/ios-filled/50/000000/dog.png" alt="Dog Logo">
         <h1>PetMatch</h1>
     </div>
     <form method="post" enctype="multipart/form-data">
@@ -158,7 +158,7 @@
         <input type="text" placeholder="Nombre" required name="usuario"><br>
         
         <label for="pass">Password:</label>
-        <input type="password" name="pass" placeholder="****" required><br>
+        <input type="password" name="pass" placeholder="****" required minlength="5"><br>
         
         <label for="file">Foto de perfil:</label>
         <input type="file" id="file" name="foto" class="custom-file-input">
@@ -166,6 +166,6 @@
         
         <input type="submit" value="Registrar">
     </form>
-    <button><a href="login.php">Login</a></button>
+    <button><a href="login.php">Inicia Sesion</a></button>
 </body>
 </html>

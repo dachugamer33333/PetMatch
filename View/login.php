@@ -93,7 +93,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="dog-logo.png" alt="Dog Logo">
+        <img src="https://img.icons8.com/ios-filled/50/000000/dog.png" alt="Dog Logo">
         <h1>PetMatch</h1>
     </div>
     <form method="POST">
@@ -101,11 +101,11 @@
         <input type="text" name="usuario" placeholder="Nombre" required>
         
         <label for="pass">Password:</label>
-        <input type="text" name="pass" placeholder="***" required>
+        <input type="password" name="pass" placeholder="***" required minlength="5">
         
-        <input type="submit" value="Login">
+        <input type="submit" value="Inicia sesion">
        
     </form>
-    <button><a href="register.php">Register</a></button>
+    <button><a href="register.php">Registrar</a></button>
 </body>
 </html>

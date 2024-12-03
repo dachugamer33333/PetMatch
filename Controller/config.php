@@ -59,7 +59,7 @@
                     $_SESSION['id']=$user['id'];
                     $_SESSION['rango']=$user['Rango'];
                     setcookie('id',$_SESSION['id']);
-                    echo "<script>alert('Secion Iniciada'); window.location.href = 'dashboard.php';</script>";
+                    echo "<script>alert('Sesion Iniciada'); window.location.href = 'dashboard.php';</script>";
                 }
                 else
                 {
@@ -144,12 +144,12 @@
                     </form>';
             } else {
                 echo '<form method="post" class="form">
-                        <input type="submit" name="cerrar" value="Login" class="btn btn-success">
+                        <input type="submit" name="cerrar" value="Inicia Sesion" class="btn btn-success">
                     </form>';
             }
 
             if (isset($_SESSION['rango']) && $_SESSION['rango'] == "admin") {
-                echo '<button onclick="remadm()" class="btn btn-admin">Admin</button>';
+                echo '<button onclick="remadm()" class="btn btn-admin">Administrador</button>';
             }
 
         }

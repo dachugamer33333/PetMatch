@@ -213,7 +213,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
         <label for="descripcion">Descripción:</label>
         <textarea name="descripcion" placeholder="Escribe una descripción sobre la mascota..." required></textarea>
 
-        <label for="edad">Edad (en años):</label>
+        <label for="edad">Edad de la mascota (en años):</label>
         <input type="number" name="edad" placeholder="0" required max="70" min="0">
 
         <label for="especie">Clase de animal:</label>
