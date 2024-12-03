@@ -42,6 +42,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin</title>
+    <script src="renviar.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -158,5 +159,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
         
     </div>
     Admin name:<?php echo $_SESSION['usuario']; ?>
+    <button class="aceptar"><a href="dashboard.php">Regresar</a></button>
+   
 </body>
 </html>

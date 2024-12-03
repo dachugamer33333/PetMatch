@@ -206,7 +206,7 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 <body>
     <form method="post" enctype="multipart/form-data">
         <div class="form-title">
-            <img src="https://img.icons8.com/color/48/pet.png" alt="Pet Icon">
+            <a href="dashboard.php"><img src="https://img.icons8.com/color/48/pet.png" alt="Pet Icon"></a>
             <h2>Publicar</h2>
         </div>
 

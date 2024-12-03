@@ -246,9 +246,13 @@ form button:active {
                 </div>
                 <button type="submit" value="cambiar" name="env">Cambiar</button>
                 <button type="submit" value="borrar" name="env">Borrar</button>
+               
+
             </div>
 
          </form>
+         <button onclick="rem()">Regresar</button>
     </div>
+    <script src="renviar.js"></script>
 </body>
 </html>
