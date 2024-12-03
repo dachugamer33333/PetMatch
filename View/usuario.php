@@ -15,10 +15,21 @@ $sql->execute();
 
 $result=$sql->get_result();
 $result=$result->fetch_assoc();
+$pass = $result['pass']; // Usa la contraseña actual como predeterminada.
 if($_SERVER['REQUEST_METHOD']=="POST")
 {
     $usuario=isset($_POST['usuario'])?$_POST['usuario'] : $result['name_user'];
-    $pass=isset($_POST['pass'])? password_hash($_POST['pass'],PASSWORD_DEFAULT): $result['pass'];
+   
+
+    // Solo procesa la contraseña si fue proporcionada en el formulario.
+    if (!empty($_POST['pass'])) {
+        if ($_POST['pass'] != $result['pass']) {
+            $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT); // Hashea si es nueva.
+        } else {
+            $pass = $_POST['pass']; // Mantén la contraseña actual si no cambia.
+        }
+    }
+
 
     if($_POST['env'] == "cambiar")
     {
@@ -207,7 +218,7 @@ form button:active {
                 </div>
                 <div class="form-group">
                     <label for="password">Contraseña</label>
-                    <input type="password" name="pass" placeholder="Contraseña">
+                    <input type="password" name="pass" placeholder="Contraseña" >
                 </div>
                 <div class="permissions">
                     <strong>Permisos:</strong> <span id="permission-label"><?php echo $result['Rango'] ?></span>
