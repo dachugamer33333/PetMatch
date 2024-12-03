@@ -33,14 +33,28 @@ if($_SERVER['REQUEST_METHOD']=="POST")
 
     if($_POST['env'] == "cambiar")
     {
-         $sql2=$conn->prepare("update usuarios set name_user=?,pass= ? where id=?");
-    $sql2->bind_param("ssi",$usuario,$pass,$_SESSION['id']);
-    if($sql2->execute())
-    {
-        echo "<script> alert('se cambio exitosamente') </script>";
-        $config->logout();
-        
-    }
+        $sql3=$conn->prepare("select name_user from usuarios where name_user = ?");
+        $sql3->bind_param("s",$_POST['usuario']);
+        $sql3->execute();
+        $row=$sql3->get_result();
+        if($row->num_rows > 0)
+        {
+            echo "<script>alert('Ya hay un usuario con este nombre'); window.location.href='usuario.php';</script>";
+        }
+        else{
+            $sql2=$conn->prepare("update usuarios set name_user=?,pass= ? where id=?");
+            $sql2->bind_param("ssi",$usuario,$pass,$_SESSION['id']);
+            if($sql2->execute())
+            {
+                echo "<script> alert('se cambio exitosamente') </script>";
+                $config->logout();
+                
+            }
+        }
+
+
+
+      
     }
    
     
