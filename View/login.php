@@ -93,7 +93,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="https://img.icons8.com/ios-filled/50/000000/dog.png" alt="Dog Logo">
+        <img src="./img/dog.png" alt="Dog Logo">
         <h1>PetMatch</h1>
     </div>
     <form method="POST">
