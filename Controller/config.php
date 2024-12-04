@@ -68,13 +68,14 @@
             
         }
 
+       
         public function pb($conn,$mostarMas)
         {
             $count=0;
             $sql=$conn->query("select * from publicacion where estado = 'publicado'");
             while($row=$sql->fetch_assoc())
             {
-                $consul=$conn->prepare("select name_user,id from usuarios where id = ? ");
+                $consul=$conn->prepare("select name_user,id,foto from usuarios where id = ? ");
                 $id_user=$row['usuario_id'];
                 $consul->bind_param('s',$id_user);
                 $consul->execute();
@@ -84,9 +85,10 @@
 
                 if($count <= $mostarMas)
                 {
+                   
                     echo '<div class="card">
                     <div class="avatar">
-                        <i class="fas fa-user"></i>
+                         <img src="data:image/jpeg;base64,' . base64_encode($result['foto']) . '" alt="User Icon">
                     </div>
                     <div class="content">
                         <div class="user-name">'. $result['name_user'] .'</div>
@@ -106,6 +108,7 @@
               
             }
         }
+       
 
         public function pba($conn)
         {

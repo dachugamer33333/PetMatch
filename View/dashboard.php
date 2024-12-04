@@ -135,16 +135,21 @@ if(isset($_POST['cerrar']))
         }
 
         .avatar {
-            background-color: #ffeb3b;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #ffc107;
-        }
+    position: relative;
+    width: 40px; /* Tamaño deseado para el contenedor del avatar */
+    height: 40px; /* Debe coincidir con el tamaño de la imagen */
+    border-radius: 50%; /* Para un diseño circular */
+    overflow: hidden; /* Evita que la imagen sobresalga */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.avatar img {
+    width: 100%; /* La imagen ocupará todo el contenedor */
+    height: 100%; /* Se ajustará a la altura del contenedor */
+    object-fit: cover; /* Asegura que la imagen se ajuste al contenedor */
+}
+     
 
         .card .content {
             flex: 1;
