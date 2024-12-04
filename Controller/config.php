@@ -72,7 +72,7 @@
         public function pb($conn,$mostarMas)
         {
             $count=0;
-            $sql=$conn->query("select * from publicacion where estado = 'publicado'");
+            $sql=$conn->query("select * from publicacion where estado = 'publicado' order by fecha_aceptacion desc");
             while($row=$sql->fetch_assoc())
             {
                 $consul=$conn->prepare("select name_user,id,foto from usuarios where id = ? ");
